@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+enum Status {
+  UNSPECIFIED = 0;
+  SUCCESS = 1;
+  ERROR = 2;
+}
+
+message GetSecretRequest {
+  string key = 1;
+  string server_secret = 2;
+}
+
+message GetSecretResponse {
+  string key = 1;
+  Status status = 2;
+  string value = 3;
+  optional string error = 4;
+}
+
+message PutSecretRequest {
+  string key = 1;
+  string value = 2;
+  string server_secret = 3;
+}
+
+message PutSecretResponse {
+  string key = 1;
+  Status status = 2;
+  optional string error = 3;
+}
+
+service Secret {
+  rpc GetSecret(GetSecretRequest) returns (GetSecretResponse);
+  rpc PutSecret(PutSecretRequest) returns (PutSecretResponse);
+}
+
