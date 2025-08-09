@@ -36,7 +36,6 @@ class DeploymentController implements SecretServer {
             console.error(error);
             return callback({code: GRPC_STATUS.INTERNAL, message: error?.message || "Unknown error"});
         }
-
     }
 }
 
