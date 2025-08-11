@@ -1,5 +1,5 @@
 const DB_CONNECTION_CONF = {
-    host: process.env.AWS_RDS_CONFIG_HOST,
+    host: "forklift.c5m6qkyswr92.ap-south-1.rds.amazonaws.com",
     port: parseInt(process.env.AWS_RDS_PORT || "5432", 10),
     user: process.env.AWS_RDS_USER,
     password: process.env.AWS_RDS_PASSWORD,
@@ -8,12 +8,13 @@ const DB_CONNECTION_CONF = {
     ssl: {
         rejectUnauthorized: false
     },
-    application_name: "forklift-scheduler",
+    application_name: "forklift-deployments",
     query_timeout: 30000, // 30 seconds
 }
 
 const DATABASES =  {
-    deployments: "deployments"
+    deployments: "deployments",
+    auth: "auth"
 } as const;
 
 export default {

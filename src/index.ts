@@ -1,19 +1,17 @@
-import {SecretService} from "./generated/proto/deployment";
-import DeploymentController from "./controller/secrets.controller";
 import MultiDatabaseService from "./repositories/init.db";
+import SQSJobClient from "./subscribers/sqs";
 const grpc = require("@grpc/grpc-js");
 
 const server = new grpc.Server();
 
-server.addService(SecretService, new DeploymentController())
-
 function startServer() {
     try {
-        server.bindAsync("0.0.0.0:7005", grpc.ServerCredentials.createInsecure(), (error: any, port: string) => {
+        server.bindAsync("0.0.0.0:7006", grpc.ServerCredentials.createInsecure(), (error: any, port: string) => {
             if (error) {
                 console.error(" Failed to bind server:", error);
                 return;
             }
+            SQSJobClient.getInstance().startScheduler();
             console.log(` gRPC server is running on port ${port}`);
         });
     }
