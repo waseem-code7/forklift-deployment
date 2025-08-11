@@ -24,21 +24,6 @@ class SecretService {
                 throw error;
             });
     }
-
-    public getSecret(name: string) {
-        const input = {
-            SecretId: name
-        }
-
-        const command = new GetSecretValueCommand(input)
-
-        return this.secretsManagerClient.send(command).then(function(result) {
-            return result;
-        }).catch(function(error) {
-            console.error("Error storing secret:", error);
-            throw error;
-        })
-    }
 }
 
 export default SecretService;

@@ -1,6 +1,6 @@
 import {Pool, PoolClient, PoolConfig} from 'pg';
 import CONFIG from "../config/databases/aws.rds";
-import {TRANSACTION_CALLBACK} from "../interfaces/auth";
+import {TRANSACTION_CALLBACK} from "../interfaces/db.repository";
 
 const DATABASES = CONFIG.DATABASES;
 const DB_CONNECTION_CONF = CONFIG.DB_CONNECTION_CONF;
@@ -25,7 +25,7 @@ class MultiDatabaseService {
         Object.keys(DATABASES).forEach((database) => {
             const config: PoolConfig = {
                 ...DB_CONNECTION_CONF,
-                database: DATABASES[database as DATABASES_NAMES],
+                database: DATABASES[database as DATABASES_NAMES]
             }
 
             const pool = new Pool(config);
